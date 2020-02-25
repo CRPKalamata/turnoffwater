@@ -1,0 +1,21 @@
+let sec = 0
+basic.forever(function () {
+    if (sonar.ping(
+        DigitalPin.P2,
+        DigitalPin.P8,
+        PingUnit.Centimeters
+    ) >= 30) {
+        if (pins.analogReadPin(AnalogPin.P1) > 800) {
+            basic.pause(1000)
+            sec += 1
+        } else {
+            sec = 0
+        }
+        basic.showNumber(sec)
+        if (sec > 20) {
+            music.beginMelody(music.builtInMelody(Melodies.Nyan), MelodyOptions.Once)
+        }
+    } else {
+        sec = 0
+    }
+})
